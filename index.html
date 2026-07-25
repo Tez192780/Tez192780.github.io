@@ -1,246 +1,110 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📊 拜年祭修仙群 · 聊天分析</title>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>📊 拜年祭修仙群 · 聊天分析</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.1.0/dist/echarts-wordcloud.min.js"></script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #f5f2ed;
-  color: #2d2d2d;
-  font-family: "PingFang SC","Microsoft YaHei","Noto Sans SC","Helvetica Neue",Arial,sans-serif;
-  padding: 24px;
-}
-.header {
-  text-align: center; padding: 44px 20px 32px;
-  background: linear-gradient(135deg,#ff6b35 0%,#f7931e 100%);
-  border-radius: 18px; margin-bottom: 24px; color: #fff;
-  box-shadow: 0 6px 30px rgba(247,147,30,0.3);
-}
-.header h1 { font-size: 32px; font-weight: 800; letter-spacing: 2px; }
-.header .sub { opacity: 0.9; margin-top: 8px; font-size: 14px; }
-.stats-row {
-  display: flex; justify-content: center; gap: 14px; margin: -5px auto 24px; flex-wrap: wrap;
-}
-.stat-card {
-  background: #fff; border-radius: 14px; padding: 16px 22px; text-align: center;
-  min-width: 105px; box-shadow: 0 3px 12px rgba(0,0,0,0.06); border: 1px solid #eee;
-}
-.stat-card .num { font-size: 26px; font-weight: 800; color: #ff6b35; }
-.stat-card .num.gold { color: #f7931e; }
-.stat-card .num.red { color: #e63946; }
-.stat-card .num.purple { color: #6c5ce7; }
-.stat-card .label { font-size: 12px; color: #888; margin-top: 4px; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f5f0eb;color:#333;font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;padding:20px}
+.w{max-width:1400px;margin:0 auto}
+.h{text-align:center;padding:40px 20px 30px;background:linear-gradient(135deg,#ff9a9e,#fecfef,#fdfcfb);border-radius:18px;margin-bottom:20px}
+.h h1{font-size:28px;color:#e84393;font-weight:800}
+.h p{color:#888;margin:6px 0 0;font-size:13px}
+.h .j{color:#bbb;font-size:11px;letter-spacing:3px;margin-top:4px}
+.s{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.sb{background:#fff;border-radius:12px;padding:14px 20px;text-align:center;min-width:90px;border:1px solid #f0e8e0}
+.sb .v{font-size:22px;font-weight:800}.sb .l{font-size:11px;color:#999;margin-top:2px}
+.p1 .v{color:#e84393}.p2 .v{color:#fd79a8}.p3 .v{color:#00b894}.p4 .v{color:#6c5ce7}.p5 .v{color:#fdcb6e}
+.r{background:linear-gradient(135deg,#fff5f5,#fff9e6);border:2px solid #ffeaa7;border-radius:14px;padding:16px 20px;margin-bottom:18px;text-align:center}
+.r h3{font-size:16px;color:#e17055}.r .row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:8px 0 0}
+.r .i{text-align:center}.r .i .n{font-size:24px;font-weight:800}.r .i .l{font-size:12px;color:#888}.c1{color:#e17055}.c2{color:#fdcb6e}.c3{color:#00b894}.c4{font-size:28px;color:#e84393}
+.r .s{font-size:11px;color:#aaa;margin-top:0}
+.cd{background:#fff;border-radius:14px;padding:16px 18px;margin-bottom:16px;border:1px solid #f0e8e0}
+.cd h3{font-size:14px;font-weight:700;color:#666;margin-bottom:10px;padding-left:12px;border-left:3px solid #e84393;display:flex;align-items:center;gap:6px}
+.cd h3 .t{font-size:10px;color:#bbb;background:#f8f4f0;padding:1px 8px;border-radius:30px;font-weight:400}
+.ct{width:100%;height:360px}.ct.t{height:460px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:1000px){.g2{grid-template-columns:1fr}}
+.a{font-size:11px;color:#bbb;text-align:center;margin-top:4px}
+</style></head><body><div class="w">
 
-.rp-banner {
-  background: linear-gradient(135deg,#fff5f5,#fff8e7);
-  border: 2px solid #ffd700; border-radius: 16px; padding: 22px 28px;
-  margin-bottom: 24px; text-align: center;
-  box-shadow: 0 3px 15px rgba(255,215,0,0.15);
-}
-.rp-banner h2 { font-size: 20px; color: #e63946; margin-bottom: 6px; }
-.rp-banner .rp-stats { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-top: 10px; }
-.rp-banner .rp-item { text-align: center; }
-.rp-banner .rp-item .n { font-size: 30px; font-weight: 800; color: #e63946; }
-.rp-banner .rp-item .n2 { font-size: 30px; font-weight: 800; color: #ff8c00; }
-.rp-banner .rp-item .n3 { font-size: 30px; font-weight: 800; color: #f7931e; }
-.rp-banner .rp-item .lbl { font-size: 13px; color: #888; margin-top: 2px; }
-
-.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-@media (max-width: 1000px) { .chart-grid { grid-template-columns: 1fr; } }
-.chart-card {
-  background: #fff; border-radius: 16px; padding: 20px;
-  box-shadow: 0 3px 15px rgba(0,0,0,0.05); border: 1px solid #eee;
-}
-.chart-card.full { grid-column: 1 / -1; }
-.chart-card h3 {
-  font-size: 16px; font-weight: 700; color: #444; margin-bottom: 12px;
-  padding-left: 14px; border-left: 4px solid #ff6b35; display: flex; align-items: center; gap: 8px;
-}
-.chart-card h3 .tag {
-  font-size: 11px; font-weight: 400; color: #aaa; background: #f5f5f5; padding: 2px 10px; border-radius: 20px;
-}
-.chart-box { width: 100%; height: 400px; }
-.chart-box.tall { height: 560px; }
-.annotation { font-size: 12px; color: #aaa; text-align: center; margin-top: 6px; }
-</style>
-</head>
-<body>
-
-<div class="header">
-  <h1>📊 "拜年祭修仙群" 聊天分析报告</h1>
-  <p class="sub">2023年1月建群 · 数据 2024-02 至 2026-07 · 50.6万条消息 · 40万条纯文本</p>
+<div class="h">
+<h1>🌸 拜年祭修仙群 · 聊天分析</h1>
+<p>2023.01 建群 · JSON 导出 2026.07.25 · 506,057 条消息 · 383,450 条文本+引用</p>
+<p class="j">✦ 年越し ✦ 赤い封筒 ✦ 音ゲー ✦ 原神 ✦ 夜更かし ✦</p>
 </div>
 
-<div class="stats-row">
-  <div class="stat-card"><div class="num">50.6万</div><div class="label">总消息数</div></div>
-  <div class="stat-card"><div class="num gold">40万</div><div class="label">文本消息</div></div>
-  <div class="stat-card"><div class="num red">23点</div><div class="label">🌙 最活跃</div></div>
-  <div class="stat-card"><div class="num purple">7,436</div><div class="label">🧧 红包提及</div></div>
-  <div class="stat-card"><div class="num">1.6万</div><div class="label">😤 旺柴最多</div></div>
+<div class="s">
+<div class="sb p1"><div class="v">50.6万</div><div class="l">总消息</div></div>
+<div class="sb p2"><div class="v">38.3万</div><div class="l">文本+回复</div></div>
+<div class="sb p3"><div class="v">7.6万</div><div class="l">表情消息</div></div>
+<div class="sb p4"><div class="v">6,249</div><div class="l">红包消息</div></div>
+<div class="sb p5"><div class="v">23时</div><div class="l">最活跃</div></div>
 </div>
 
-<div class="rp-banner">
-  <h2>🧧 红包文化</h2>
-  <p style="color:#666;font-size:14px;">除夕夜 26人→47+人，每年春节都是巅峰</p>
-  <div class="rp-stats">
-    <div class="rp-item"><div class="n">2,678</div><div class="lbl">「恭喜发财」</div></div>
-    <div class="rp-item"><div class="n2">2,167</div><div class="lbl">「大吉大利」</div></div>
-    <div class="rp-item"><div class="n3">2,591</div><div class="lbl">「红包」</div></div>
-    <div class="rp-item"><div class="n" style="color:#ff6b35;font-size:34px;">7,436</div><div class="lbl">红包相关总提及</div></div>
-  </div>
+<div class="r">
+<h3>🧧 红包文化</h3>
+<p style="font-size:12px;color:#aaa">6,249 条独立红包消息 · 除夕夜从 26 人炸到 47+ 人</p>
+<div class="row">
+<div class="i"><div class="n c1">2,720</div><div class="l">恭喜发财</div><div class="s">红包消息内 2,634 + 聊天 86</div></div>
+<div class="i"><div class="n c2">2,209</div><div class="l">大吉大利</div><div class="s">红包消息内 2,132 + 聊天 77</div></div>
+<div class="i"><div class="n c3">2,507</div><div class="l">「红包」提及</div><div class="s">聊天文字中提及</div></div>
+<div class="i"><div class="n c4">7,436</div><div class="l">红包相关总计</div></div>
+</div></div>
+
+<div class="g2">
+<div class="cd"><h3>⏰ 24小时活跃度 <span class="t">修仙作息</span></h3><div id="h1" class="ct"></div><div class="a">深夜 21~00 时最活跃 · 凌晨 03~07 在睡觉 · 夜间占比 53%</div></div>
+<div class="cd"><h3>📅 月份活跃度 <span class="t">30个月</span></h3><div id="h2" class="ct"></div><div class="a">每年春节（2 月）是绝对巅峰 · 2024-02 创纪录 81,689 条</div></div>
 </div>
 
-<div class="chart-card full">
-  <h3>⏰ 24小时活跃度 <span class="tag">修仙作息</span></h3>
-  <div id="chartHour" class="chart-box"></div>
-  <div class="annotation">🔴 深夜 21:00~00:00 最高峰 · 🟣 凌晨 03:00~07:00 在睡觉</div>
+<div class="g2">
+<div class="cd"><h3>📦 消息类型 <span class="t">各类占比</span></h3><div id="h3" class="ct"></div></div>
+<div class="cd"><h3>😊 表情 TOP 12 <span class="t">75,745 条</span></h3><div id="h4" class="ct"></div></div>
 </div>
 
-<div class="chart-grid">
-  <div class="chart-card">
-    <h3>📅 月份活跃度 <span class="tag">年度周期</span></h3>
-    <div id="chartMonth" class="chart-box"></div>
-  </div>
-  <div class="chart-card">
-    <h3>😊 表情被点了多少次 <span class="tag">40万条中统计</span></h3>
-    <div id="chartEmoji" class="chart-box" style="height:420px;"></div>
-  </div>
-</div>
+<div class="cd"><h3>💬 高频词汇 TOP 50 <span class="t">jieba 分词 · 过滤红包/表情/昵称</span></h3><div id="h5" class="ct" style="height:620px"></div></div>
 
-<div class="chart-card full">
-  <h3>💬 高频词汇 TOP 40 <span class="tag">jieba 分词 · 过滤红包/表情/昵称/停用词</span></h3>
-  <div id="chartWords" class="chart-box" style="height:500px;"></div>
-  <div class="annotation">基于全部 40 万条文本消息统计，完整体现群聊语言风格</div>
+<div class="cd"><h3>☁️ 词云 <span class="t">echarts-wordcloud · 前 50 词</span></h3><div id="wc" class="ct" style="height:420px"></div></div>
+
+<div class="cd"><h3>👥 最活跃群友 TOP 20 <span class="t">含文本/引用/表情</span></h3><div id="h6" class="ct t"></div></div>
+
 </div>
 
 <script>
-// ============================
-// Data - 之前写在代码里的数字我都替换成正确版了
-// ============================
-var hourData = [
-  [0,35722],[1,18851],[2,7282],[3,2405],[4,1556],[5,915],
-  [6,1034],[7,1993],[8,4739],[9,8016],[10,12937],[11,18090],
-  [12,25790],[13,21233],[14,19888],[15,27672],[16,29840],
-  [17,24822],[18,29839],[19,32733],[20,36177],[21,38614],[22,51949],[23,53696]
-];
+//============= DATA =============
+var h24=[35722,18851,7282,2405,1556,915,1034,1993,4739,8016,12937,18090,25790,21233,19991,27741,29874,24872,29847,32733,36177,38614,51949,53696];
+var months=[['24-02',81689],['24-03',3776],['24-04',3497],['24-05',5716],['24-06',5784],['24-07',47027],['24-08',45152],['24-09',21954],['24-10',21275],['24-11',9879],['24-12',3691],['25-01',39618],['25-02',44781],['25-03',7109],['25-04',13361],['25-05',19703],['25-06',12512],['25-07',11059],['25-08',9771],['25-09',3186],['25-10',12156],['25-11',3333],['25-12',4084],['26-01',7428],['26-02',34851],['26-03',1702],['26-04',10909],['26-05',4328],['26-06',9468],['26-07',7258]];
+var types=[{name:'💬 文本',value:316337,color:'#e84393'},{name:'😊 表情',value:75745,color:'#fdcb6e'},{name:'💭 引用回复',value:67113,color:'#00b894'},{name:'🖼 图片',value:27523,color:'#6c5ce7'},{name:'🔧 系统',value:8083,color:'#fd79a8'},{name:'🧧 红包',value:6249,color:'#e17055'},{name:'🔗 链接',value:1708,color:'#0984e3'},{name:'🎬 视频/语音等',value:3030,color:'#a29bfe'}];
+var em=[['旺柴 😤',16475],['发怒 😡',14953],['流泪 😭',11891],['捂脸 🤦',9222],['恐惧 😱',6909],['苦涩 😣',2785],['炸弹 💣',2623],['裂开 💥',1175],['撇嘴 😏',722],['吃瓜 🍉',526],['发呆 😶',512],['加油 💪',453]];
+var wl=[['哼哼',15047],['谢谢',4444],['猫娘',2795],['一只',2794],['感觉',2725],['混拾',2486],['哈哈哈',2373],['本宫',2262],['晚安',1884],['嫁给',1870],['老师',1842],['群主',1694],['学校',1683],['清屏',1682],['没事',1480],['确实',1398],['不行',1259],['老板',1235],['游戏',1144],['朋友',1111],['睡觉',1024],['逆天',952],['晚上',941],['视频',929],['姐哥',927],['兄弟',919],['是不是',908],['正常',898],['回来',899],['红包',867],['辛苦',842],['算了',824],['明天',812],['不好意思',798],['笑死',808],['搞定',784],['便宜',860],['小时',1003],['时间',937],['有人',1036],['看到',1248],['不到',1251],['记得',979],['喜欢',780],['语音',878],['来了',833],['逆天',952],['一起',770],['不行',1259],['晚上',941]].sort(function(a,b){return b[1]-a[1]});
+var us=[['䏋灀(最活跃)',46175],['w『E',40120],['耳蜗楔形文',34781],['东酩',21949],['诶嘿',21514],['木瓜',20045],['仔仔',19748],['馒馒困橹',17671],['陆彦华',15966],['大老师de情敌',14316],['萤火',13740],['皖华徽衡',12378],['盐焗鱼',8429],['西琳女王',8248],['@混拾卿',8225],['沙海行旱舟',7980],['黄灯',7720],['挽挽',6963],['墨染心白',6500],['星云天',5800]];
 
-var monthData = [
-  ['24-02',81689],['24-03',3776],['24-04',3497],['24-05',5716],['24-06',5784],
-  ['24-07',47027],['24-08',45152],['24-09',21954],['24-10',21275],['24-11',9879],
-  ['24-12',3691],['25-01',39618],['25-02',44781],['25-03',7109],['25-04',13361],
-  ['25-05',19703],['25-06',12512],['25-07',11059],['25-08',9771],['25-09',3333],
-  ['25-10',12156],['25-11',3186],['25-12',4084],['26-01',7428],['26-02',34851],
-  ['26-03',1702],['26-04',10909],['26-05',4328],['26-06',9468],['26-07',6994]
-];
+//============= RENDER =============
+function rd(id,o){var e=document.getElementById(id);if(e)echarts.init(e).setOption(o)}
 
-var emojiData = [
-  ['旺柴',16460],['发怒',14952],['流泪',11887],['捂脸',9214],
-  ['恐惧',6896],['苦涩',2784],['炸弹',2620],['裂开',1173],
-  ['撇嘴',722],['吃瓜',526],['发呆',512],['加油',453]
-];
+rd('h1',{tooltip:{trigger:'axis',formatter:p=>p[0].name+'<br/>消息: <b>'+p[0].value.toLocaleString()+'</b>'},grid:{left:55,right:12,top:10,bottom:24},xAxis:{type:'category',data:Array.from({length:24},(_,i)=>i+':00'),axisLabel:{color:'#aaa',fontSize:10,formatter:v=>v.split(':')[0]},axisLine:{lineStyle:{color:'#eee'}},axisTick:{show:false}},yAxis:{type:'value',axisLabel:{color:'#bbb',formatter:v=>(v/1000)+'k'},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},series:[{type:'bar',barWidth:'55%',data:h24.map(function(v,i){var a,b;if(i>=21||i<=0){a='#e84393';b='#fd79a8'}else if(i<=7){a='#6c5ce7';b='#a29bfe'}else{a='#fdcb6e';b='#ffeaa7'}return{value:v,itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:a},{offset:1,color:b}]},borderRadius:[4,4,0,0]}}})}]});
 
-var wordData = [
-  ['哼哼',15045],['谢谢',4478],['哈哈哈',2375],['晚安',1947],
-  ['没事',1478],['确实',1387],['语音',1307],['老板',1244],
-  ['游戏',1139],['朋友',1115],['睡觉',1025],['群主',1018],
-  ['兄弟',923],['逆天',955],['晚上',914],['视频',976],
-  ['不行',1262],['看到',1230],['有人',1075],['记得',964],
-  ['回来',915],['正常',869],['便宜',860],['辛苦',842],
-  ['算了',822],['明天',812],['笑死',808],['不好意思',798],
-  ['红包',851],['小时',999],['本宫',2299],['嫁给',1875],
-  ['语音',1307],['姐哥',936],['宫主',896],['只有',876],
-  ['是不是',882],['能不能',789],['搞定',784],['喜欢',780]
-].sort(function(a,b){return b[1]-a[1];});
+rd('h2',{tooltip:{trigger:'axis',formatter:p=>p[0].name+'<br/>消息: <b>'+p[0].value.toLocaleString()+'</b>'},grid:{left:50,right:15,top:25,bottom:35},xAxis:{type:'category',data:months.map(d=>d[0]),axisLabel:{color:'#aaa',fontSize:9,rotate:55,interval:1},axisLine:{lineStyle:{color:'#eee'}},axisTick:{show:false}},yAxis:{type:'value',axisLabel:{color:'#bbb',formatter:v=>(v/1000)+'k'},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},series:[{type:'line',smooth:true,data:months.map(d=>d[1]),symbol:'circle',symbolSize:4,lineStyle:{width:2.5,color:'#e84393'},areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(232,67,147,0.12)'},{offset:1,color:'rgba(232,67,147,0)'}]}},markPoint:{symbol:'pin',symbolSize:42,itemStyle:{color:'#e17055'},label:{fontSize:10,color:'#fff'},data:[{coord:['24-02',81689],name:'🏮春节'},{coord:['25-02',44781],name:'🎆拜年祭'},{coord:['26-02',34851],name:'🎆拜年祭'}]}}]});
 
-// ============================
-// Chart 1: 24h
-// ============================
+rd('h3',{tooltip:{trigger:'item',formatter:p=>p.marker+' '+p.name+'<br/>'+p.value.toLocaleString()+' 条 ('+p.percent+'%)'},series:[{type:'pie',radius:['30%','62%'],center:['50%','48%'],padAngle:1.5,itemStyle:{borderColor:'#fff',borderWidth:2,borderRadius:3},label:{color:'#888',fontSize:11,formatter:'{b}\n{d}%'},labelLine:{lineStyle:{color:'#ddd'}},data:types}]});
+
+(function(){var c=echarts.init(document.getElementById('h4'));var items=em.slice().reverse();var cl=['#e84393','#fdcb6e','#00b894','#6c5ce7','#fd79a8','#e17055','#a29bfe','#0984e3','#d63031','#00cec9','#b2bec3','#fab1a0'];c.setOption({tooltip:{trigger:'axis',formatter:p=>p[0].name+'<br/>使用 <b>'+p[0].value.toLocaleString()+'</b> 次'},grid:{left:75,right:55,top:5,bottom:12},xAxis:{type:'value',axisLabel:{color:'#bbb'},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},yAxis:{type:'category',data:items.map(d=>d[0]),axisLabel:{color:'#555',fontSize:12,fontWeight:600,interval:0},axisLine:{show:false},axisTick:{show:false}},series:[{type:'bar',barWidth:18,data:items.map((d,i)=>({value:d[1],itemStyle:{color:cl[i%cl.length],borderRadius:[0,5,5,0]}})),label:{show:true,position:'right',color:'#999',fontSize:11,formatter:p=>(p.value/1000).toFixed(1)+'k'}}]})})();
+
+(function(){var c=echarts.init(document.getElementById('h5'));var items=wl.slice(0,50).reverse();var cl=['#e84393','#fd79a8','#fdcb6e','#00b894','#6c5ce7','#a29bfe','#e17055','#0984e3','#00cec9','#d63031'];c.setOption({tooltip:{trigger:'axis',formatter:p=>'<b>'+p[0].name+'</b><br/>出现 <b>'+p[0].value.toLocaleString()+'</b> 次'},grid:{left:80,right:50,top:3,bottom:10},xAxis:{type:'value',axisLabel:{color:'#bbb'},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},yAxis:{type:'category',data:items.map(d=>d[0]),axisLabel:{color:'#555',fontSize:11,fontWeight:500,interval:0},axisLine:{show:false},axisTick:{show:false}},series:[{type:'bar',barWidth:12,categoryGap:'30%',data:items.map((d,i)=>({value:d[1],itemStyle:{color:cl[i%cl.length],borderRadius:[0,5,5,0]}})),label:{show:true,position:'right',color:'#999',fontSize:10,formatter:p=>p.value.toLocaleString()}}]})})();
+
+//============= WORD CLOUD =============
 (function(){
-  var c = echarts.init(document.getElementById('chartHour'));
+  var c=echarts.init(document.getElementById('wc'));
+  var data=wl.slice(0,50).map(function(d){return {name:d[0],value:d[1]};});
+  var colors=['#e84393','#d63384','#fd79a8','#fdcb6e','#f39c12','#e17055','#00b894','#00cec9','#0984e3','#6c5ce7','#a29bfe','#2d3436','#636e72','#d63031','#e17055'];
   c.setOption({
-    tooltip: {trigger:'axis',backgroundColor:'#fff',borderColor:'#ddd',textStyle:{color:'#333',fontSize:13},
-      formatter:function(p){return p[0].name+'<br/>消息数: <b>'+p[0].value.toLocaleString()+'</b> 条';}},
-    grid:{left:60,right:20,top:15,bottom:28},
-    xAxis:{type:'category',data:hourData.map(function(d){return d[0]+':00';}),
-      axisLabel:{color:'#999',fontSize:11,formatter:function(v){return v.split(':')[0];}},
-      axisLine:{lineStyle:{color:'#ddd'}},axisTick:{show:false}},
-    yAxis:{type:'value',axisLabel:{color:'#aaa',formatter:function(v){return (v/1000)+'k';}},
-      splitLine:{lineStyle:{color:'#f0f0f0',type:'dashed'}}},
-    series:[{type:'bar',barWidth:'52%',
-      data:hourData.map(function(d,i){
-        var a,b;if(i>=21||i<=1){a='#ff6b35';b='#e63946';}else if(i<=7){a='#a29bfe';b='#6c5ce7';}else{a='#f7931e';b='#ffd700';}
-        return {value:d[1],itemStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:a},{offset:1,color:b}]),borderRadius:[4,4,0,0]}};
-      })}]
+    tooltip:{show:true,formatter:function(p){return p.name+'<br/>出现 <b>'+p.value+'</b> 次'}},
+    series:[{type:'wordCloud',gridSize:12,sizeRange:[20,66],rotationRange:[0,0],rotationStep:0,shape:'circle',width:'100%',height:'100%',top:10,left:0,
+      textStyle:{fontFamily:'"PingFang SC","Microsoft YaHei",sans-serif',fontWeight:'bold',color:function(){return colors[Math.floor(Math.random()*colors.length)];}},
+      data:data}]
   });
   window.addEventListener('resize',function(){c.resize();});
 })();
 
-// ============================
-// Chart 2: Monthly
-// ============================
-(function(){
-  var c = echarts.init(document.getElementById('chartMonth'));
-  c.setOption({
-    tooltip:{trigger:'axis',backgroundColor:'#fff',borderColor:'#ddd',textStyle:{color:'#333',fontSize:13},
-      formatter:function(p){return p[0].name+'<br/>消息数: <b>'+p[0].value.toLocaleString()+'</b> 条';}},
-    grid:{left:55,right:20,top:28,bottom:40},
-    xAxis:{type:'category',data:monthData.map(function(d){return d[0];}),
-      axisLabel:{color:'#999',fontSize:10,rotate:55,interval:1},axisLine:{lineStyle:{color:'#ddd'}},axisTick:{show:false}},
-    yAxis:{type:'value',axisLabel:{color:'#aaa',formatter:function(v){return (v/1000)+'k';}},splitLine:{lineStyle:{color:'#f0f0f0',type:'dashed'}}},
-    series:[{type:'line',smooth:true,data:monthData.map(function(d){return d[1];}),
-      symbol:'circle',symbolSize:5,lineStyle:{width:3,color:'#ff6b35'},
-      areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(255,107,53,0.2)'},{offset:1,color:'rgba(255,107,53,0)'}])},itemStyle:{color:'#ff6b35'},
-      markPoint:{symbol:'pin',symbolSize:50,itemStyle:{color:'#e63946'},label:{fontSize:11,color:'#fff'},
-        data:[{coord:['24-02',81689],value:'🏮建群后首个春节'},{coord:['25-02',44781],value:'🎆拜年祭'},{coord:['26-02',34851],value:'🎆拜年祭'}]}
-    }]
-  });
-  window.addEventListener('resize',function(){c.resize();});
-})();
+//============= USERS =============
+(function(){var c=echarts.init(document.getElementById('h6'));var items=us.slice().reverse();var cl=['#e84393','#fdcb6e','#00b894','#6c5ce7','#fd79a8','#e17055','#a29bfe','#0984e3','#00cec9','#d63031','#fab1a0','#b2bec3','#55efc4','#74b9ff','#ffeaa7','#636e72','#e17055','#00b894','#6c5ce7','#a29bfe'];c.setOption({tooltip:{trigger:'axis',formatter:p=>'<b>'+p[0].name+'</b><br/>发言 <b>'+p[0].value.toLocaleString()+'</b> 条'},grid:{left:108,right:55,top:3,bottom:10},xAxis:{type:'value',axisLabel:{color:'#bbb'},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},yAxis:{type:'category',data:items.map(d=>d[0]),axisLabel:{color:'#555',fontSize:11,fontWeight:600,interval:0},axisLine:{show:false},axisTick:{show:false}},series:[{type:'bar',barWidth:12,categoryGap:'30%',data:items.map((d,i)=>({value:d[1],itemStyle:{color:cl[i%cl.length],borderRadius:[0,5,5,0]}})),label:{show:true,position:'right',color:'#999',fontSize:10,formatter:p=>p.value.toLocaleString()}}]})})();
 
-// ============================
-// Chart 3: Emoji
-// ============================
-(function(){
-  var c = echarts.init(document.getElementById('chartEmoji'));
-  var items = emojiData.slice().reverse();
-  var p = ['#a29bfe','#6c5ce7','#fd79a8','#e84393','#00cec9','#55efc4','#74b9ff','#fdcb6e','#e17055','#00b894','#f8a5c2','#ffd700'];
-  c.setOption({
-    tooltip:{trigger:'axis',backgroundColor:'#fff',borderColor:'#ddd',textStyle:{color:'#333',fontSize:13},
-      formatter:function(p){return p[0].name+'<br/>使用 <b>'+p[0].value.toLocaleString()+'</b> 次';}},
-    grid:{left:65,right:65,top:5,bottom:15},
-    xAxis:{type:'value',axisLabel:{color:'#aaa'},splitLine:{lineStyle:{color:'#f0f0f0',type:'dashed'}}},
-    yAxis:{type:'category',data:items.map(function(d){return d[0];}),axisLabel:{color:'#333',fontSize:14,fontWeight:600,interval:0},axisLine:{show:false},axisTick:{show:false}},
-    series:[{type:'bar',barWidth:'55%',
-      data:items.map(function(d,i){return{value:d[1],itemStyle:{color:p[i%p.length],borderRadius:[0,5,5,0]}};}),
-      label:{show:true,position:'right',color:'#888',fontSize:12,fontWeight:600,formatter:function(p){return (p.value/1000).toFixed(1)+'k';}}
-    }]
-  });
-  window.addEventListener('resize',function(){c.resize();});
-})();
-
-// ============================
-// Chart 4: Top Words
-// ============================
-(function(){
-  var c = echarts.init(document.getElementById('chartWords'));
-  var items = wordData.slice(0,40).reverse();
-  var palette = ['#ff6b35','#f7931e','#ffd700','#e63946','#ff9f43','#6c5ce7','#a29bfe','#00b894','#00cec9','#fd79a8'];
-  c.setOption({
-    tooltip:{trigger:'axis',backgroundColor:'#fff',borderColor:'#ddd',textStyle:{color:'#333',fontSize:13},
-      formatter:function(p){return p[0].name+'<br/>出现 <b>'+p[0].value.toLocaleString()+'</b> 次';}},
-    grid:{left:85,right:65,top:3,bottom:12},
-    xAxis:{type:'value',axisLabel:{color:'#aaa'},splitLine:{lineStyle:{color:'#f0f0f0',type:'dashed'}}},
-    yAxis:{type:'category',data:items.map(function(d){return d[0];}),axisLabel:{color:'#333',fontSize:12,fontWeight:600,interval:0},axisLine:{show:false},axisTick:{show:false}},
-    series:[{type:'bar',barWidth:'60%',
-      data:items.map(function(d,i){return{value:d[1],itemStyle:{color:palette[i%palette.length],borderRadius:[0,5,5,0],shadowColor:palette[i%palette.length]+'40',shadowBlur:4}};}),
-      label:{show:true,position:'right',color:'#888',fontSize:11,formatter:function(p){return p.value.toLocaleString();}}
-    }]
-  });
-  window.addEventListener('resize',function(){c.resize();});
-})();
-</script>
-</body>
-</html>
+window.addEventListener('resize',function(){[1,2,3,4,5,6].forEach(function(n){var e=document.getElementById('h'+n);var c=echarts.getInstanceByDom(e);if(c)c.resize()})});
+</script></body></html>
