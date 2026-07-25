@@ -3,26 +3,36 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.1.0/dist/echarts-wordcloud.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f5f0eb;color:#333;font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;padding:20px}
-.w{max-width:1400px;margin:0 auto}
-.h{text-align:center;padding:40px 20px 30px;background:linear-gradient(135deg,#ff9a9e,#fecfef,#fdfcfb);border-radius:18px;margin-bottom:20px}
-.h h1{font-size:28px;color:#e84393;font-weight:800}
+body{background:#f5f0eb;color:#333;font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif}
+.w{max-width:1400px;margin:0 auto;padding:20px}
+.h{text-align:center;padding:36px 16px 24px;background:linear-gradient(135deg,#ff9a9e,#fecfef,#fdfcfb);border-radius:18px;margin-bottom:18px}
+.h h1{font-size:26px;color:#e84393;font-weight:800}
 .h p{color:#888;margin:6px 0 0;font-size:13px}
 .h .j{color:#bbb;font-size:11px;letter-spacing:3px;margin-top:4px}
-.s{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
-.sb{background:#fff;border-radius:12px;padding:14px 20px;text-align:center;min-width:90px;border:1px solid #f0e8e0}
-.sb .v{font-size:22px;font-weight:800}.sb .l{font-size:11px;color:#999;margin-top:2px}
+.s{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.sb{background:#fff;border-radius:12px;padding:12px 14px;text-align:center;min-width:80px;border:1px solid #f0e8e0;flex:1}
+.sb .v{font-size:20px;font-weight:800}.sb .l{font-size:11px;color:#999;margin-top:2px}
 .p1 .v{color:#e84393}.p2 .v{color:#fd79a8}.p3 .v{color:#00b894}.p4 .v{color:#6c5ce7}.p5 .v{color:#fdcb6e}
-.r{background:linear-gradient(135deg,#fff5f5,#fff9e6);border:2px solid #ffeaa7;border-radius:14px;padding:16px 20px;margin-bottom:18px;text-align:center}
-.r h3{font-size:16px;color:#e17055}.r .row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:8px 0 0}
-.r .i{text-align:center}.r .i .n{font-size:24px;font-weight:800}.r .i .l{font-size:12px;color:#888}.c1{color:#e17055}.c2{color:#fdcb6e}.c3{color:#00b894}.c4{font-size:28px;color:#e84393}
-.r .s{font-size:11px;color:#aaa;margin-top:0}
-.cd{background:#fff;border-radius:14px;padding:16px 18px;margin-bottom:16px;border:1px solid #f0e8e0}
-.cd h3{font-size:14px;font-weight:700;color:#666;margin-bottom:10px;padding-left:12px;border-left:3px solid #e84393;display:flex;align-items:center;gap:6px}
+.r{background:linear-gradient(135deg,#fff5f5,#fff9e6);border:2px solid #ffeaa7;border-radius:14px;padding:14px 16px;margin-bottom:16px;text-align:center}
+.r h3{font-size:15px;color:#e17055}.r .row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:8px 0 0}
+.r .i{text-align:center}.r .i .n{font-size:22px;font-weight:800}.r .i .l{font-size:12px;color:#888}.c1{color:#e17055}.c2{color:#fdcb6e}.c3{color:#00b894}.c4{font-size:26px;color:#e84393}
+.cd{background:#fff;border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid #f0e8e0}
+.cd h3{font-size:14px;font-weight:700;color:#666;margin-bottom:10px;padding-left:10px;border-left:3px solid #e84393;display:flex;align-items:center;gap:6px}
 .cd h3 .t{font-size:10px;color:#bbb;background:#f8f4f0;padding:1px 8px;border-radius:30px;font-weight:400}
-.ct{width:100%;height:360px}.ct.t{height:460px}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:1000px){.g2{grid-template-columns:1fr}}
+.ct{width:100%;height:340px}.ct.t{height:460px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .a{font-size:11px;color:#bbb;text-align:center;margin-top:4px}
+@media(max-width:1000px){.g2{grid-template-columns:1fr}}
+@media(max-width:640px){
+.w{padding:10px}.h{padding:24px 12px 18px;border-radius:14px;margin-bottom:12px}
+.h h1{font-size:20px}.h p{font-size:12px}
+.s{gap:5px;margin-bottom:12px}.sb{padding:8px 6px;min-width:0}
+.sb .v{font-size:16px}.sb .l{font-size:9px}
+.r{padding:10px;border-radius:12px;margin-bottom:12px}.r h3{font-size:14px}.r .row{gap:10px}.r .i .n{font-size:18px}.r .i .l{font-size:10px}
+.cd{padding:10px;border-radius:12px;margin-bottom:10px}
+.cd h3{font-size:12px;padding-left:8px}.cd h3 .t{font-size:9px;padding:0 6px}
+.ct{height:280px}.ct.t{height:380px}.a{font-size:10px}
+}
 </style></head><body><div class="w">
 
 <div class="h">
@@ -34,77 +44,66 @@ body{background:#f5f0eb;color:#333;font-family:"PingFang SC","Microsoft YaHei","
 <div class="s">
 <div class="sb p1"><div class="v">50.6万</div><div class="l">总消息</div></div>
 <div class="sb p2"><div class="v">38.3万</div><div class="l">文本+回复</div></div>
-<div class="sb p3"><div class="v">7.6万</div><div class="l">表情消息</div></div>
+<div class="sb p3"><div class="v">7.6万</div><div class="l">表情</div></div>
 <div class="sb p4"><div class="v">6,249</div><div class="l">红包消息</div></div>
 <div class="sb p5"><div class="v">23时</div><div class="l">最活跃</div></div>
 </div>
 
 <div class="r">
 <h3>🧧 红包文化</h3>
-<p style="font-size:12px;color:#aaa">6,249 条独立红包消息 · 除夕夜从 26 人炸到 47+ 人</p>
+<p style="font-size:12px;color:#aaa">6,249 条红包消息 · 除夕夜 26→47+ 人</p>
 <div class="row">
-<div class="i"><div class="n c1">2,720</div><div class="l">恭喜发财</div><div class="s">红包消息内 2,634 + 聊天 86</div></div>
-<div class="i"><div class="n c2">2,209</div><div class="l">大吉大利</div><div class="s">红包消息内 2,132 + 聊天 77</div></div>
-<div class="i"><div class="n c3">2,507</div><div class="l">「红包」提及</div><div class="s">聊天文字中提及</div></div>
-<div class="i"><div class="n c4">7,436</div><div class="l">红包相关总计</div></div>
+<div class="i"><div class="n c1">2,720</div><div class="l">恭喜发财</div></div>
+<div class="i"><div class="n c2">2,209</div><div class="l">大吉大利</div></div>
+<div class="i"><div class="n c3">2,507</div><div class="l">「红包」</div></div>
+<div class="i"><div class="n c4">7,436</div><div class="l">总计</div></div>
 </div></div>
 
 <div class="g2">
-<div class="cd"><h3>⏰ 24小时活跃度 <span class="t">修仙作息</span></h3><div id="h1" class="ct"></div><div class="a">深夜 21~00 时最活跃 · 凌晨 03~07 在睡觉 · 夜间占比 53%</div></div>
-<div class="cd"><h3>📅 月份活跃度 <span class="t">30个月</span></h3><div id="h2" class="ct"></div><div class="a">每年春节（2 月）是绝对巅峰 · 2024-02 创纪录 81,689 条</div></div>
+<div class="cd"><h3>⏰ 24小时活跃度 <span class="t">修仙作息</span></h3><div id="h1" class="ct"></div><div class="a">深夜 21~00 最活跃 · 凌晨 03~07 在睡觉</div></div>
+<div class="cd"><h3>📅 月份活跃度 <span class="t">30个月</span></h3><div id="h2" class="ct"></div><div class="a">每年春节（2月）是绝对巅峰</div></div>
 </div>
 
 <div class="g2">
-<div class="cd"><h3>📦 消息类型 <span class="t">各类占比</span></h3><div id="h3" class="ct"></div></div>
-<div class="cd"><h3>😊 表情 TOP 12 <span class="t">75,745 条</span></h3><div id="h4" class="ct"></div></div>
+<div class="cd"><h3>📦 消息类型 <span class="t">占比</span></h3><div id="h3" class="ct"></div></div>
+<div class="cd"><h3>😊 表情使用 TOP 12 <span class="t">75,745 条</span></h3><div id="h4" class="ct"></div></div>
 </div>
 
-<div class="cd"><h3>💬 高频词汇 TOP 50 <span class="t">jieba 分词 · 过滤红包/表情/昵称</span></h3><div id="h5" class="ct" style="height:620px"></div></div>
-
-<div class="cd"><h3>☁️ 词云 <span class="t">echarts-wordcloud · 前 50 词</span></h3><div id="wc" class="ct" style="height:420px"></div></div>
-
-<div class="cd"><h3>👥 最活跃群友 TOP 20 <span class="t">含文本/引用/表情</span></h3><div id="h6" class="ct t"></div></div>
+<div class="cd"><h3>💬 高频词汇 TOP 100 <span class="t">已过滤emoji引用 · 含单字</span></h3><div id="h5" class="ct" style="height:760px"></div></div>
+<div class="cd"><h3>☁️ 词云 <span class="t">前 50 词</span></h3><div id="wc" class="ct" style="height:400px"></div></div>
+<div class="cd"><h3>👥 最活跃群友 TOP 20</h3><div id="h6" class="ct t"></div></div>
 
 </div>
 
 <script>
-//============= DATA =============
 var h24=[35722,18851,7282,2405,1556,915,1034,1993,4739,8016,12937,18090,25790,21233,19991,27741,29874,24872,29847,32733,36177,38614,51949,53696];
 var months=[['24-02',81689],['24-03',3776],['24-04',3497],['24-05',5716],['24-06',5784],['24-07',47027],['24-08',45152],['24-09',21954],['24-10',21275],['24-11',9879],['24-12',3691],['25-01',39618],['25-02',44781],['25-03',7109],['25-04',13361],['25-05',19703],['25-06',12512],['25-07',11059],['25-08',9771],['25-09',3186],['25-10',12156],['25-11',3333],['25-12',4084],['26-01',7428],['26-02',34851],['26-03',1702],['26-04',10909],['26-05',4328],['26-06',9468],['26-07',7258]];
 var types=[{name:'💬 文本',value:316337,color:'#e84393'},{name:'😊 表情',value:75745,color:'#fdcb6e'},{name:'💭 引用回复',value:67113,color:'#00b894'},{name:'🖼 图片',value:27523,color:'#6c5ce7'},{name:'🔧 系统',value:8083,color:'#fd79a8'},{name:'🧧 红包',value:6249,color:'#e17055'},{name:'🔗 链接',value:1708,color:'#0984e3'},{name:'🎬 视频/语音等',value:3030,color:'#a29bfe'}];
-var em=[['旺柴 😤',16475],['发怒 😡',14953],['流泪 😭',11891],['捂脸 🤦',9222],['恐惧 😱',6909],['苦涩 😣',2785],['炸弹 💣',2623],['裂开 💥',1175],['撇嘴 😏',722],['吃瓜 🍉',526],['发呆 😶',512],['加油 💪',453]];
-var wl=[['哼哼',15047],['谢谢',4444],['猫娘',2795],['一只',2794],['感觉',2725],['混拾',2486],['哈哈哈',2373],['本宫',2262],['晚安',1884],['嫁给',1870],['老师',1842],['群主',1694],['学校',1683],['清屏',1682],['没事',1480],['确实',1398],['不行',1259],['老板',1235],['游戏',1144],['朋友',1111],['睡觉',1024],['逆天',952],['晚上',941],['视频',929],['姐哥',927],['兄弟',919],['是不是',908],['正常',898],['回来',899],['红包',867],['辛苦',842],['算了',824],['明天',812],['不好意思',798],['笑死',808],['搞定',784],['便宜',860],['小时',1003],['时间',937],['有人',1036],['看到',1248],['不到',1251],['记得',979],['喜欢',780],['语音',878],['来了',833],['逆天',952],['一起',770],['不行',1259],['晚上',941]].sort(function(a,b){return b[1]-a[1]});
+
+// 表情使用量（从 75,745 条 emoji 消息中统计，与文本无关）
+var em=[['旺柴',16475],['发怒😡',14953],['流泪😭',11891],['捂脸🤦',9222],['恐惧😱',6909],['苦涩😣',2785],['炸弹💣',2623],['裂开💥',1175],['撇嘴😏',722],['吃瓜🍉',526],['发呆😶',512],['加油💪',453]];
+
+// 用户打字高频词（去掉了[...]中的表情引用，含单字语气词）
+var wl=[['喵',16160],['哼哼',15045],['啊',13410],['吧',10818],['吗',9389],['谢谢',4444],['喜欢',4035],['呢',3056],['猫娘',2795],['一只',2794],['混拾',2486],['哈哈哈',2373],['本宫',2262],['晚安',1884],['嗯',1792],['嫁给',1870],['老师',1842],['哦',1792],['群主',1694],['学校',1683],['清屏',1682],['呀',1583],['没事',1480],['确实',1398],['不行',1259],['老板',1235],['游戏',1144],['朋友',1111],['睡觉',1024],['哇',1021],['逆天',952],['晚上',941],['啦',935],['视频',929],['姐哥',927],['兄弟',919],['红包',867],['宫主',870],['辛苦',842],['明天',812],['不好意思',798],['笑死',808],['搞定',784],['小时',1003],['看到',1248],['不到',1251],['记得',979],['语音',878],['来了',833],['正常',898],['是不是',908],['回来',899],['问题',1151],['想',3835],['给',6303],['说',6186],['看',5529],['人',4926],['多',3952],['上',3321],['把',3272],['很',3082],['发现',889],['孩子',878],['不想',876],['几个',865],['以为',833],['作业',815],['好看',813],['还好',798],['反正',786],['好好',785],['主要',781],['玩意',758],['不用',756],['里面',753],['一起',752],['哈',744],['只能',738],['电脑',736],['有没有',724],['嘶',724],['还要',722],['这里',720],['好多',708],['群里',703],['差不多',691],['噢',681],['想要',677],['今年',669],['肯定',658],['昨天',646],['义父',638],['当时',635],['呜呜',629],['需要',629],['最后',621],['建议',620],['头像',617],['一般',613],['那种',612],['突然',611],['唉',609],['原来',606],['回家',605],['开学',600],['世界',599],['可爱',597],['结果',585],['英语',585]].sort(function(a,b){return b[1]-a[1]});
+
 var us=[['䏋灀(最活跃)',46175],['w『E',40120],['耳蜗楔形文',34781],['东酩',21949],['诶嘿',21514],['木瓜',20045],['仔仔',19748],['馒馒困橹',17671],['陆彦华',15966],['大老师de情敌',14316],['萤火',13740],['皖华徽衡',12378],['盐焗鱼',8429],['西琳女王',8248],['@混拾卿',8225],['沙海行旱舟',7980],['黄灯',7720],['挽挽',6963],['墨染心白',6500],['星云天',5800]];
 
-//============= RENDER =============
-function rd(id,o){var e=document.getElementById(id);if(e)echarts.init(e).setOption(o)}
+function mk(id,o){var e=document.getElementById(id);if(e)echarts.init(e).setOption(o)}
 
-rd('h1',{tooltip:{trigger:'axis',formatter:p=>p[0].name+'<br/>消息: <b>'+p[0].value.toLocaleString()+'</b>'},grid:{left:55,right:12,top:10,bottom:24},xAxis:{type:'category',data:Array.from({length:24},(_,i)=>i+':00'),axisLabel:{color:'#aaa',fontSize:10,formatter:v=>v.split(':')[0]},axisLine:{lineStyle:{color:'#eee'}},axisTick:{show:false}},yAxis:{type:'value',axisLabel:{color:'#bbb',formatter:v=>(v/1000)+'k'},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},series:[{type:'bar',barWidth:'55%',data:h24.map(function(v,i){var a,b;if(i>=21||i<=0){a='#e84393';b='#fd79a8'}else if(i<=7){a='#6c5ce7';b='#a29bfe'}else{a='#fdcb6e';b='#ffeaa7'}return{value:v,itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:a},{offset:1,color:b}]},borderRadius:[4,4,0,0]}}})}]});
+mk('h1',{tooltip:{trigger:'axis',formatter:function(p){return p[0].name+'<br/>消息: <b>'+p[0].value.toLocaleString()+'</b>'}},grid:{left:48,right:10,top:10,bottom:24},xAxis:{type:'category',data:Array.from({length:24},function(_,i){return i+':00'}),axisLabel:{color:'#aaa',fontSize:10,formatter:function(v){return v.split(':')[0]}},axisLine:{lineStyle:{color:'#eee'}},axisTick:{show:false}},yAxis:{type:'value',axisLabel:{color:'#bbb',fontSize:10,formatter:function(v){return (v/1000)+'k'}},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},series:[{type:'bar',barWidth:'50%',data:h24.map(function(v,i){var a,b;if(i>=21||i<=0){a='#e84393';b='#fd79a8'}else if(i<=7){a='#6c5ce7';b='#a29bfe'}else{a='#fdcb6e';b='#ffeaa7'}return{value:v,itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:a},{offset:1,color:b}]},borderRadius:[4,4,0,0]}}})}]});
 
-rd('h2',{tooltip:{trigger:'axis',formatter:p=>p[0].name+'<br/>消息: <b>'+p[0].value.toLocaleString()+'</b>'},grid:{left:50,right:15,top:25,bottom:35},xAxis:{type:'category',data:months.map(d=>d[0]),axisLabel:{color:'#aaa',fontSize:9,rotate:55,interval:1},axisLine:{lineStyle:{color:'#eee'}},axisTick:{show:false}},yAxis:{type:'value',axisLabel:{color:'#bbb',formatter:v=>(v/1000)+'k'},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},series:[{type:'line',smooth:true,data:months.map(d=>d[1]),symbol:'circle',symbolSize:4,lineStyle:{width:2.5,color:'#e84393'},areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(232,67,147,0.12)'},{offset:1,color:'rgba(232,67,147,0)'}]}},markPoint:{symbol:'pin',symbolSize:42,itemStyle:{color:'#e17055'},label:{fontSize:10,color:'#fff'},data:[{coord:['24-02',81689],name:'🏮春节'},{coord:['25-02',44781],name:'🎆拜年祭'},{coord:['26-02',34851],name:'🎆拜年祭'}]}}]});
+mk('h2',{tooltip:{trigger:'axis',formatter:function(p){return p[0].name+'<br/>消息: <b>'+p[0].value.toLocaleString()+'</b>'}},grid:{left:45,right:12,top:25,bottom:35},xAxis:{type:'category',data:months.map(function(d){return d[0]}),axisLabel:{color:'#aaa',fontSize:9,rotate:55,interval:1},axisLine:{lineStyle:{color:'#eee'}},axisTick:{show:false}},yAxis:{type:'value',axisLabel:{color:'#bbb',fontSize:9,formatter:function(v){return (v/1000)+'k'}},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},series:[{type:'line',smooth:true,data:months.map(function(d){return d[1]}),symbol:'circle',symbolSize:4,lineStyle:{width:2.5,color:'#e84393'},areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(232,67,147,0.12)'},{offset:1,color:'rgba(232,67,147,0)'}]}},markPoint:{symbol:'pin',symbolSize:40,itemStyle:{color:'#e17055'},label:{fontSize:9,color:'#fff'},data:[{coord:['24-02',81689],name:'🏮春节'},{coord:['25-02',44781],name:'🎆拜年祭'},{coord:['26-02',34851],name:'🎆拜年祭'}]}}]});
 
-rd('h3',{tooltip:{trigger:'item',formatter:p=>p.marker+' '+p.name+'<br/>'+p.value.toLocaleString()+' 条 ('+p.percent+'%)'},series:[{type:'pie',radius:['30%','62%'],center:['50%','48%'],padAngle:1.5,itemStyle:{borderColor:'#fff',borderWidth:2,borderRadius:3},label:{color:'#888',fontSize:11,formatter:'{b}\n{d}%'},labelLine:{lineStyle:{color:'#ddd'}},data:types}]});
+mk('h3',{tooltip:{trigger:'item',formatter:function(p){return p.marker+' '+p.name+'<br/>'+p.value.toLocaleString()+' 条 ('+p.percent+'%)'}},series:[{type:'pie',radius:['28%','60%'],center:['50%','48%'],padAngle:1.5,itemStyle:{borderColor:'#fff',borderWidth:2,borderRadius:3},label:{color:'#888',fontSize:11,formatter:'{b}\n{d}%'},labelLine:{lineStyle:{color:'#ddd'}},data:types}]});
 
-(function(){var c=echarts.init(document.getElementById('h4'));var items=em.slice().reverse();var cl=['#e84393','#fdcb6e','#00b894','#6c5ce7','#fd79a8','#e17055','#a29bfe','#0984e3','#d63031','#00cec9','#b2bec3','#fab1a0'];c.setOption({tooltip:{trigger:'axis',formatter:p=>p[0].name+'<br/>使用 <b>'+p[0].value.toLocaleString()+'</b> 次'},grid:{left:75,right:55,top:5,bottom:12},xAxis:{type:'value',axisLabel:{color:'#bbb'},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},yAxis:{type:'category',data:items.map(d=>d[0]),axisLabel:{color:'#555',fontSize:12,fontWeight:600,interval:0},axisLine:{show:false},axisTick:{show:false}},series:[{type:'bar',barWidth:18,data:items.map((d,i)=>({value:d[1],itemStyle:{color:cl[i%cl.length],borderRadius:[0,5,5,0]}})),label:{show:true,position:'right',color:'#999',fontSize:11,formatter:p=>(p.value/1000).toFixed(1)+'k'}}]})})();
+(function(){var c=echarts.init(document.getElementById('h4'));var items=em.slice().reverse();var cl=['#e84393','#fdcb6e','#00b894','#6c5ce7','#fd79a8','#e17055','#a29bfe','#0984e3','#d63031','#00cec9','#b2bec3','#fab1a0'];c.setOption({tooltip:{trigger:'axis',formatter:function(p){return p[0].name+'<br/>使用 <b>'+p[0].value.toLocaleString()+'</b> 次'}},grid:{left:68,right:48,top:5,bottom:10},xAxis:{type:'value',axisLabel:{color:'#bbb',fontSize:10},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},yAxis:{type:'category',data:items.map(function(d){return d[0]}),axisLabel:{color:'#555',fontSize:11,fontWeight:600,interval:0},axisLine:{show:false},axisTick:{show:false}},series:[{type:'bar',barWidth:14,data:items.map(function(d,i){return{value:d[1],itemStyle:{color:cl[i%cl.length],borderRadius:[0,5,5,0]}}}),label:{show:true,position:'right',color:'#999',fontSize:10,formatter:function(p){return (p.value/1000).toFixed(1)+'k'}}}]})})();
 
-(function(){var c=echarts.init(document.getElementById('h5'));var items=wl.slice(0,50).reverse();var cl=['#e84393','#fd79a8','#fdcb6e','#00b894','#6c5ce7','#a29bfe','#e17055','#0984e3','#00cec9','#d63031'];c.setOption({tooltip:{trigger:'axis',formatter:p=>'<b>'+p[0].name+'</b><br/>出现 <b>'+p[0].value.toLocaleString()+'</b> 次'},grid:{left:80,right:50,top:3,bottom:10},xAxis:{type:'value',axisLabel:{color:'#bbb'},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},yAxis:{type:'category',data:items.map(d=>d[0]),axisLabel:{color:'#555',fontSize:11,fontWeight:500,interval:0},axisLine:{show:false},axisTick:{show:false}},series:[{type:'bar',barWidth:12,categoryGap:'30%',data:items.map((d,i)=>({value:d[1],itemStyle:{color:cl[i%cl.length],borderRadius:[0,5,5,0]}})),label:{show:true,position:'right',color:'#999',fontSize:10,formatter:p=>p.value.toLocaleString()}}]})})();
+(function(){var c=echarts.init(document.getElementById('h5'));var items=wl.slice(0,100).reverse();var cl=['#e84393','#fd79a8','#fdcb6e','#00b894','#6c5ce7','#a29bfe','#e17055','#0984e3','#00cec9','#d63031'];c.setOption({tooltip:{trigger:'axis',formatter:function(p){return '<b>'+p[0].name+'</b><br/>出现 <b>'+p[0].value.toLocaleString()+'</b> 次'}},grid:{left:55,right:35,top:3,bottom:10},xAxis:{type:'value',axisLabel:{color:'#bbb',fontSize:9},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},yAxis:{type:'category',data:items.map(function(d){return d[0]}),axisLabel:{color:'#555',fontSize:9,fontWeight:500,interval:0},axisLine:{show:false},axisTick:{show:false}},series:[{type:'bar',barWidth:7,categoryGap:'20%',data:items.map(function(d,i){return{value:d[1],itemStyle:{color:cl[i%cl.length],borderRadius:[0,3,3,0]}}}),label:{show:true,position:'right',color:'#999',fontSize:8,formatter:function(p){return p.value.toLocaleString()}}}]})})();
 
-//============= WORD CLOUD =============
-(function(){
-  var c=echarts.init(document.getElementById('wc'));
-  var data=wl.slice(0,50).map(function(d){return {name:d[0],value:d[1]};});
-  var colors=['#e84393','#d63384','#fd79a8','#fdcb6e','#f39c12','#e17055','#00b894','#00cec9','#0984e3','#6c5ce7','#a29bfe','#2d3436','#636e72','#d63031','#e17055'];
-  c.setOption({
-    tooltip:{show:true,formatter:function(p){return p.name+'<br/>出现 <b>'+p.value+'</b> 次'}},
-    series:[{type:'wordCloud',gridSize:12,sizeRange:[20,66],rotationRange:[0,0],rotationStep:0,shape:'circle',width:'100%',height:'100%',top:10,left:0,
-      textStyle:{fontFamily:'"PingFang SC","Microsoft YaHei",sans-serif',fontWeight:'bold',color:function(){return colors[Math.floor(Math.random()*colors.length)];}},
-      data:data}]
-  });
-  window.addEventListener('resize',function(){c.resize();});
-})();
+// 词云
+(function(){var c=echarts.init(document.getElementById('wc'));var data=wl.slice(0,100).map(function(d){return{name:d[0],value:d[1]*2}});var colors=['#e84393','#d63384','#fd79a8','#e17055','#fdcb6e','#f39c12','#00b894','#0984e3','#6c5ce7','#2d3436','#636e72','#d63031'];c.setOption({tooltip:{show:true,formatter:function(p){return p.name+'<br/>出现 <b>'+p.value/2+'</b> 次'}},series:[{type:'wordCloud',gridSize:20,sizeRange:[32,86],rotationRange:[0,0],shape:'circle',width:'100%',height:'100%',textStyle:{fontFamily:'"PingFang SC","Microsoft YaHei",sans-serif',fontWeight:'bold',color:function(){return colors[Math.floor(Math.random()*colors.length)]}},data:data}]});window.addEventListener('resize',function(){c.resize()})})();
 
-//============= USERS =============
-(function(){var c=echarts.init(document.getElementById('h6'));var items=us.slice().reverse();var cl=['#e84393','#fdcb6e','#00b894','#6c5ce7','#fd79a8','#e17055','#a29bfe','#0984e3','#00cec9','#d63031','#fab1a0','#b2bec3','#55efc4','#74b9ff','#ffeaa7','#636e72','#e17055','#00b894','#6c5ce7','#a29bfe'];c.setOption({tooltip:{trigger:'axis',formatter:p=>'<b>'+p[0].name+'</b><br/>发言 <b>'+p[0].value.toLocaleString()+'</b> 条'},grid:{left:108,right:55,top:3,bottom:10},xAxis:{type:'value',axisLabel:{color:'#bbb'},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},yAxis:{type:'category',data:items.map(d=>d[0]),axisLabel:{color:'#555',fontSize:11,fontWeight:600,interval:0},axisLine:{show:false},axisTick:{show:false}},series:[{type:'bar',barWidth:12,categoryGap:'30%',data:items.map((d,i)=>({value:d[1],itemStyle:{color:cl[i%cl.length],borderRadius:[0,5,5,0]}})),label:{show:true,position:'right',color:'#999',fontSize:10,formatter:p=>p.value.toLocaleString()}}]})})();
+(function(){var c=echarts.init(document.getElementById('h6'));var items=us.slice().reverse();var cl=['#e84393','#fdcb6e','#00b894','#6c5ce7','#fd79a8','#e17055','#a29bfe','#0984e3','#00cec9','#d63031','#fab1a0','#b2bec3','#55efc4','#74b9ff','#ffeaa7','#636e72','#e17055','#00b894','#6c5ce7','#a29bfe'];c.setOption({tooltip:{trigger:'axis',formatter:function(p){return '<b>'+p[0].name+'</b><br/>发言 <b>'+p[0].value.toLocaleString()+'</b> 条'}},grid:{left:95,right:45,top:3,bottom:10},xAxis:{type:'value',axisLabel:{color:'#bbb',fontSize:9},splitLine:{lineStyle:{color:'#f5f0eb',type:'dashed'}}},yAxis:{type:'category',data:items.map(function(d){return d[0]}),axisLabel:{color:'#555',fontSize:10,fontWeight:600,interval:0},axisLine:{show:false},axisTick:{show:false}},series:[{type:'bar',barWidth:10,categoryGap:'25%',data:items.map(function(d,i){return{value:d[1],itemStyle:{color:cl[i%cl.length],borderRadius:[0,5,5,0]}}}),label:{show:true,position:'right',color:'#999',fontSize:9,formatter:function(p){return p.value.toLocaleString()}}}]})})();
 
-window.addEventListener('resize',function(){[1,2,3,4,5,6].forEach(function(n){var e=document.getElementById('h'+n);var c=echarts.getInstanceByDom(e);if(c)c.resize()})});
+window.addEventListener('resize',function(){for(var i=1;i<=6;i++){var e=document.getElementById('h'+i);var inst=echarts.getInstanceByDom(e);if(inst)inst.resize()}});
 </script></body></html>
